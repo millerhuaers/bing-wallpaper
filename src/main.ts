@@ -6,9 +6,11 @@ const MAX_DAYS = 7;
 
 // 下载/打开当前查看的壁纸
 function openWallpaper() {
-	let url = `${API_BASE_URL}/1080p`;
+	// 加上时间戳防止下载到被缓存的旧图
+	const t = new Date().getTime();
+	let url = `${API_BASE_URL}/1080p?t=${t}`;
 	if (currentIndex > 0) {
-		url += `?index=${currentIndex}`;
+		url += `&index=${currentIndex}`;
 	}
 	window.open(url);
 }
@@ -22,33 +24,34 @@ async function loadWallpaper(index: number) {
 	const urlDisplay = document.getElementById("api-url-display");
 
 	// 更新按钮状态
-	if (prevBtn) prevBtn.disabled = index >= MAX_DAYS; // 到达最旧的一天
-	if (nextBtn) nextBtn.disabled = index <= 0;        // 到达最新的一天（今天）
+	if (prevBtn) prevBtn.disabled = index >= MAX_DAYS;
+	if (nextBtn) nextBtn.disabled = index <= 0;
 
 	if (copyright) copyright.textContent = "Loading...";
 
 	try {
-		// 1. 获取 JSON 版权信息
-		let jsonUrl = `${API_BASE_URL}/json`;
-		if (index > 0) jsonUrl += `?index=${index}`;
+		// 【关键修复】：加上时间戳 t，彻底打破浏览器的玄学死缓存！
+		const timestamp = new Date().getTime();
+		let jsonUrl = `${API_BASE_URL}/json?t=${timestamp}`;
+		if (index > 0) jsonUrl += `&index=${index}`;
 		
 		const response = await fetch(jsonUrl);
 		if (!response.ok) throw new Error(response.status.toString());
 		const data = await response.json();
 
-		// 2. 更新背景图片
+		// 更新背景图片（同样加上时间戳防缓存）
 		if (bgImg) {
-			let imgUrl = `${API_BASE_URL}/1080p`;
-			if (index > 0) imgUrl += `?index=${index}`;
+			let imgUrl = `${API_BASE_URL}/1080p?t=${timestamp}`;
+			if (index > 0) imgUrl += `&index=${index}`;
 			bgImg.src = imgUrl;
 		}
 
-		// 3. 更新版权文字 (兼容 Worker 返回的单对象或原版数组)
+		// 更新版权文字
 		if (data && copyright) {
 			copyright.textContent = data.copyright || (data.images && data.images[0].copyright) || "Unknown Copyright";
 		}
 
-		// 4. 更新展示的 API 链接
+		// 更新展示的 API 链接（给用户看的展示链接不需要加时间戳，保持美观）
 		if (urlDisplay) {
 			let displayUrl = window.location.origin + "/api/1080p";
 			if (index > 0) displayUrl += `?index=${index}`;
@@ -86,13 +89,13 @@ document.getElementById("next-btn")?.addEventListener("click", () => {
 	}
 });
 
-// 绑定模糊特效和底部点击事件
+// 绑定特效和底部事件
 document.getElementById("bg-img")?.addEventListener("click", function () {
 	this.classList.toggle("blur");
 });
 document.getElementById("footer")?.addEventListener("click", openWallpaper);
 
-// 页面加载完毕后初始化
+// 页面初始化
 window.addEventListener("load", () => {
 	loadWallpaper(currentIndex);
 });
