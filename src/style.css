@@ -1,64 +1,68 @@
 * {
-	box-sizing: border-box;
-	scrollbar-width: none;
+    box-sizing: border-box;
+    scrollbar-width: none
 }
 
 body {
-	color: white;
-	font-family: Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
-	font-size: small;
-	line-height: 1.5em;
-	margin: 0;
-	overflow: hidden;
-	-webkit-tap-highlight-color: transparent;
+    color: #fff;
+    font-family: Helvetica,PingFang SC,Microsoft YaHei,sans-serif;
+    font-size: small;
+    line-height: 1.5em;
+    margin: 0;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent
 }
 
 code {
-	font-family: Consolas, monospace;
-	left: 15px;
-	left: calc(env(safe-area-inset-left) + 15px);
-	overflow: auto;
-	top: 15px;
-	white-space: nowrap;
+    font-family: Consolas,monospace;
+    left: 15px;
+    left: calc(env(safe-area-inset-left) + 15px);
+    overflow: auto;
+    top: 15px;
+    white-space: nowrap
 }
 
 footer {
-	bottom: 15px;
-	color: inherit;
-	cursor: pointer;
-	right: 15px;
-	right: calc(env(safe-area-inset-right) + 15px);
-	text-align: right;
-	text-decoration: none;
-	user-select: none;
+    bottom: 15px;
+    color: inherit;
+    cursor: pointer;
+    right: 15px;
+    right: calc(env(safe-area-inset-right) + 15px);
+    text-align: right;
+    text-decoration: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none
 }
 
 html {
-	background-color: black;
-	height: 100%;
+    background-color: #000;
+    height: 100%
 }
 
 .bg-img {
-	display: block;
-	height: 100%;
-	object-fit: cover;
-	position: fixed;
-	transition: all .25s;
-	width: 100%;
-	z-index: -1;
+    display: block;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    position: fixed;
+    transition: all .25s;
+    width: 100%;
+    z-index: -1
 }
 
 .bg-img.blur {
-	filter: blur(10px);
-	transform: scale(1.1);
+    filter: blur(10px);
+    transform: scale(1.1)
 }
 
 .text-box {
-	backdrop-filter: blur(10px);
-	background-color: rgba(0, 0, 0, .2);
-	border: 1px solid rgba(255, 255, 255, .2);
-	border-radius: 5px;
-	max-width: calc(100% - 30px);
-	padding: 10px 15px;
-	position: fixed;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: #0003;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 5px;
+    max-width: calc(100% - 30px);
+    padding: 10px 15px;
+    position: fixed
 }
