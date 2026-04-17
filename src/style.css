@@ -152,3 +152,46 @@ html {
     padding: 2px 4px !important;
     border-radius: 3px !important;
 }
+/* 新增：导航按钮样式 */
+.nav-controls {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 0 40px !important;
+    transform: translateY(-50%) !important;
+    pointer-events: none !important; /* 允许点击穿透空白区域 */
+    z-index: 100 !important;
+}
+
+.nav-controls button {
+    pointer-events: auto !important;
+    background: rgba(30, 30, 30, 0.4) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50% !important;
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.nav-controls button:hover:not(:disabled) {
+    background: rgba(30, 30, 30, 0.8) !important;
+    color: white !important;
+    transform: scale(1.1) !important;
+}
+
+.nav-controls button:disabled {
+    opacity: 0 !important; /* 到了尽头直接隐藏按钮，更美观 */
+    cursor: default !important;
+    pointer-events: none !important;
+}
