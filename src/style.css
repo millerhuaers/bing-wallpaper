@@ -73,6 +73,8 @@ html {
     gap: 10px !important;
     font-family: monospace !important;
     white-space: nowrap !important;
+    top: 15px;
+    left: 15px;
 }
 
 .tooltip-wrapper {
