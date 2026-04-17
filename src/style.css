@@ -89,9 +89,9 @@ html {
 /* 核心弹窗：初始必须是隐藏且绝对定位 */
 .tooltip-card {
     position: absolute !important;
-    bottom: 150% !important;
+    top: 140% !important;
     left: 50% !important;
-    transform: translateX(-50%) translateY(10px) !important;
+    transform: translateX(-50%) translateY(-10px) !important;
     
     width: 280px !important;
     padding: 15px !important;
@@ -118,7 +118,7 @@ html {
 .tooltip-card::after {
     content: "" !important;
     position: absolute !important;
-    top: 100% !important;
+    bottom: 100% !important;
     left: 50% !important;
     margin-left: -6px !important;
     border: 6px solid transparent !important;
