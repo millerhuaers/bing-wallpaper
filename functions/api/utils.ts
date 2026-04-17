@@ -11,11 +11,13 @@ export function encodeData(data: object) {
 	return array.join("&");
 }
 
-export function getBingWallpaperJson(lang: string): Promise<BingWallpaperJson> {
+// 新增参数 idx，默认值为 "0"
+export function getBingWallpaperJson(lang: string, idx: string = "0"): Promise<BingWallpaperJson> {
 	return new Promise((resolve, reject) => {
 		fetch("https://www.bing.com/HPImageArchive.aspx?" + encodeData({
 			format: "js",
 			mkt: lang,
+			idx: idx, // 将 index 参数传给必应 API
 			n: "1"
 		}))
 			.then((response) => {
@@ -32,11 +34,13 @@ export function getBingWallpaperJson(lang: string): Promise<BingWallpaperJson> {
 
 export async function getBingWallpaperUrl(
 	langHeader: string | null,
+	idx: string = "0", // 新增参数 idx
 	urlModifier?: (url: string) => string
 ) {
 	try {
 		const lang = getLangFromHeader(langHeader);
-		const json = await getBingWallpaperJson(lang);
+		// 将 idx 传递给 Json 获取函数
+		const json = await getBingWallpaperJson(lang, idx); 
 		const hostname = lang === "zh-CN" ? "cn.bing.com" : "www.bing.com";
 
 		let url = "https://" + hostname + json.images[0].url;
@@ -61,7 +65,7 @@ export async function getBingWallpaperUrl(
 }
 
 export function getLangFromHeader(langHeader: string | null) {
-	if (/^(yue|zh)(-cn|-hans(-[a-z]+)?)?/i.test(langHeader)) {
+	if (/^(yue|zh)(-cn|-hans(-[a-z]+)?)?/i.test(langHeader || "")) {
 		return "zh-CN";
 	} else if (langHeader?.startsWith("zh")) {
 		return "zh-TW";
