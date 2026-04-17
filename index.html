@@ -4,13 +4,37 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex">
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-		<title>Bing Wallpaper</title>
+		<title>Bing Wallpaper API</title>
 		<link rel="icon" href="https://www.bing.com/sa/simg/bing_p_rr_teal_min.ico">
+        <style>
+            .api-info { text-align: left; line-height: 1.6; }
+            .api-info h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; }
+            .api-info ul { margin: 0; padding-left: 20px; }
+            .api-info li { margin-bottom: 10px; }
+            .api-info code { background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; }
+        </style>
 	</head>
 	<body>
 		<img id="bg-img" class="bg-img" src="/api/1080p" alt="Bing Wallpaper">
-		<code class="text-box">body { background-image: url(/api/1080p); }</code>
-		<footer id="footer" class="text-box">
+		
+        <div class="text-box api-info">
+			<h3>API Endpoints</h3>
+			<ul>
+				<li>
+					<code>GET /api/1080p</code><br>
+					Returns the latest Bing wallpaper of the day in 1080p resolution as a JPG image.
+				</li>
+				<li>
+					<code>GET /api/4k</code><br>
+					Returns the latest Bing Wallpaper of the day in 4K resolution as a JPG image.
+				</li>
+				<li>
+					<code>GET /api/json</code><br>
+					Returns a JSON object containing the wallpaper's info.
+				</li>
+			</ul>
+		</div>
+        <footer id="footer" class="text-box">
 			<div id="copyright"></div>
 			<div>Use of this image is restricted to wallpaper only.</div>
 			<div>Bing is a trademark of Microsoft. This site is not affiliated with Microsoft.</div>
