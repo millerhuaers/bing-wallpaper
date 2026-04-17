@@ -1,13 +1,35 @@
-export async function onRequest(context) {
-    const url = new URL(context.request.url);
-    const index = url.searchParams.get("index") || "0";
-    
-    const res = await fetch(`https://www.bing.com/HPImageArchive.aspx?format=js&idx=${index}&n=1&mkt=zh-CN`);
-    const data = await res.json();
-    
-    if (data && data.images && data.images.length > 0) {
-        const imageUrl = `https://www.bing.com${data.images[0].urlbase}_UHD.jpg`;
-        return Response.redirect(imageUrl, 302);
-    }
-    return new Response("Not Found", { status: 404 });
-}
+import { getLangFromHeader } from "./utils";
+
+export const onRequest: PagesFunction = async (context) => {
+	try {
+		const lang = getLangFromHeader(
+			context.request.headers.get("accept-language")
+		);
+		const url = new URL(context.request.url);
+		const index = url.searchParams.get("index") || "0";
+
+		const response = await fetch(`https://www.bing.com/HPImageArchive.aspx?format=js&idx=${index}&n=1&mkt=${lang}`);
+		if (!response.ok) throw new Error("Bing API error");
+		const data: any = await response.json();
+
+		if (data?.images?.[0]) {
+			// 拼接 4K (UHD) 分辨率图片链接
+			const imageUrl = `https://www.bing.com${data.images[0].urlbase}_UHD.jpg`;
+			
+			const headers = new Headers();
+			headers.set("Access-Control-Allow-Origin", "*");
+			headers.set("Cache-Control", "max-age=3600");
+			headers.set("Location", imageUrl);
+
+			return new Response(null, {
+				status: 302,
+				headers: headers
+			});
+		}
+		throw new Error("No image found");
+	} catch {
+		const headers = new Headers();
+		headers.set("Access-Control-Allow-Origin", "*");
+		return new Response(null, { headers, status: 500 });
+	}
+};
