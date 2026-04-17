@@ -10,6 +10,11 @@
 	<body>
 		<img id="bg-img" class="bg-img" src="/api/1080p" alt="Bing Wallpaper">
 		
+		<div class="nav-controls">
+			<button id="prev-btn" title="前一天的壁纸">◀</button>
+			<button id="next-btn" title="后一天的壁纸" disabled>▶</button>
+		</div>
+
 		<div class="api-container text-box">
 			<span id="api-url-display">/api/1080p</span>
 			<div class="tooltip-wrapper">
@@ -30,6 +35,7 @@
 			<div>Use of this image is restricted to wallpaper only.</div>
 			<div>Bing is a trademark of Microsoft. This site is not affiliated with Microsoft.</div>
 		</footer>
+		
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>
