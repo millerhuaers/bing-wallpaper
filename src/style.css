@@ -91,7 +91,7 @@ html {
 /* 核心弹窗：初始必须是隐藏且绝对定位 */
 .tooltip-card {
     position: absolute !important;
-    top: 140% !important;
+    top: 160% !important;
     left: 50% !important;
     transform: translateX(-50%) translateY(-10px) !important;
     
