@@ -6,104 +6,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 		<title>Bing Wallpaper API</title>
 		<link rel="icon" href="https://www.bing.com/sa/simg/bing_p_rr_teal_min.ico">
-		
-		<style>
-			/* 容器排版，确保在一行内垂直居中 */
-			.api-trigger-box {
-				display: inline-flex !important;
-				align-items: center;
-				gap: 8px;
-			}
-
-			.tooltip-container {
-				position: relative !important;
-				display: inline-block !important;
-				cursor: pointer;
-			}
-
-			/* 悬停按钮的文字样式 */
-			.hover-text {
-				color: #4facfe;
-				font-weight: bold;
-				transition: color 0.2s;
-			}
-			.hover-text:hover {
-				color: #76c6ff;
-			}
-			
-			/* 强制重置弹窗内容样式，加上 !important 防止被全局样式污染 */
-			.tooltip-content {
-				position: absolute !important;
-				visibility: hidden !important;
-				opacity: 0 !important;
-				width: 320px !important;
-				background-color: rgba(25, 25, 25, 0.95) !important;
-				color: #fff !important;
-				text-align: left !important;
-				border-radius: 8px !important;
-				padding: 16px !important;
-				z-index: 9999 !important;
-				
-				/* 定位到正上方 */
-				bottom: 150% !important;
-				left: 50% !important;
-				transform: translateX(-50%) translateY(10px) !important;
-				transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s !important;
-				box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-				
-				/* 关键：防止不可见时阻挡鼠标点击 */
-				pointer-events: none !important; 
-			}
-
-			/* 小三角箭头 */
-			.tooltip-content::after {
-				content: "" !important;
-				position: absolute !important;
-				top: 100% !important;
-				left: 50% !important;
-				margin-left: -6px !important;
-				border-width: 6px !important;
-				border-style: solid !important;
-				border-color: rgba(25, 25, 25, 0.95) transparent transparent transparent !important;
-			}
-
-			/* 鼠标悬停时的状态 */
-			.tooltip-container:hover .tooltip-content {
-				visibility: visible !important;
-				opacity: 1 !important;
-				transform: translateX(-50%) translateY(0) !important;
-				pointer-events: auto !important;
-			}
-
-			/* 弹窗内部的文字排版重置 */
-			.tooltip-content h3 { margin: 0 0 12px 0 !important; font-size: 15px !important; border-bottom: 1px solid #444 !important; padding-bottom: 8px !important; color: #fff !important;}
-			.tooltip-content ul { margin: 0 !important; padding-left: 20px !important; list-style: disc !important; }
-			.tooltip-content li { margin-bottom: 10px !important; font-size: 13px !important; color: #ddd !important; line-height: 1.4 !important; }
-			.tooltip-content code { 
-				background: rgba(255,255,255,0.15) !important; 
-				padding: 2px 6px !important; 
-				border-radius: 4px !important; 
-				font-family: monospace !important; 
-				color: #4facfe !important; 
-				font-size: 13px !important;
-				display: inline-block !important;
-				margin-bottom: 4px !important;
-			}
-		</style>
 	</head>
 	<body>
 		<img id="bg-img" class="bg-img" src="/api/1080p" alt="Bing Wallpaper">
 		
-		<div class="text-box api-trigger-box">
-			<span id="api-url-display" style="font-family: monospace;">/api/1080p</span>
-			<div class="tooltip-container">
-				<span class="hover-text">🚀 API信息</span>
-				<div class="tooltip-content">
+		<div class="api-container text-box">
+			<span id="api-url-display">/api/1080p</span>
+			<div class="tooltip-wrapper">
+				<span class="tooltip-trigger">🚀 API信息</span>
+				<div class="tooltip-card">
 					<h3>API Endpoints</h3>
 					<ul>
-						<li><code>GET /api/1080p</code><br>Returns the latest Bing wallpaper in 1080p.</li>
-						<li><code>GET /api/4k</code><br>Returns the latest Bing Wallpaper in 4K.</li>
-						<li><code>GET /api/json</code><br>Returns a JSON object containing the wallpaper's info.</li>
+						<li><code>GET /api/1080p</code><br>1080p wallpaper image</li>
+						<li><code>GET /api/4k</code><br>4K wallpaper image</li>
+						<li><code>GET /api/json</code><br>Wallpaper details (JSON)</li>
 					</ul>
 				</div>
 			</div>
@@ -114,15 +30,6 @@
 			<div>Use of this image is restricted to wallpaper only.</div>
 			<div>Bing is a trademark of Microsoft. This site is not affiliated with Microsoft.</div>
 		</footer>
-
-		<script>
-			document.addEventListener("DOMContentLoaded", () => {
-				const urlDisplay = document.getElementById("api-url-display");
-				if (urlDisplay) {
-					urlDisplay.textContent = window.location.origin + "/api/1080p";
-				}
-			});
-		</script>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>
